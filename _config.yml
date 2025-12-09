@@ -1,1 +1,11 @@
 
+title: "Henry Woodrow"
+theme: jekyll-theme-primer
+
+# IMPORTANT: don't let Jekyll parse the React project
+exclude:
+  - my-app
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
