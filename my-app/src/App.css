@@ -139,6 +139,8 @@ body {
   color: inherit;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 4px;
   padding: 0;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
@@ -151,10 +153,6 @@ body {
   border-radius: 999px;
   background: var(--text);
   transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.nav-toggle span + span {
-  margin-top: 4px;
 }
 
 .nav-toggle.open span:nth-child(1) {
