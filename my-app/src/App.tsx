@@ -106,7 +106,7 @@ const App: React.FC = () => {
           <div className="brand-mark">HW</div>
           <div>
             <p className="brand-name">Henry Woodrow</p>
-            <p className="brand-title">Graduate Software Developer</p>
+            <p className="brand-title">Software Developer</p>
           </div>
         </div>
         <nav className="site-nav">
@@ -130,7 +130,7 @@ const App: React.FC = () => {
               automation and user impact.
             </h1>
             <p className="lead">
-              Graduate developer based in Ballymoney, Northern Ireland with
+              Developer based in Ballymoney, Northern Ireland with
               hands-on experience delivering C++, Python and Laravel solutions
               inside collaborative, agile teams.
             </p>
@@ -186,7 +186,7 @@ const App: React.FC = () => {
           </div>
           <div className="section-card">
             <p>
-              Highly motivated graduate developer with practical experience
+              Highly motivated developer with practical experience
               across C++, Java, Python and modern web stacks. Confident operating
               in Linux environments, shipping to Git-controlled repositories and
               collaborating with cross-functional teams that span time zones.
