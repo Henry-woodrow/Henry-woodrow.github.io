@@ -21,18 +21,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Install Node for building the React app
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       # Build the React app located in /my-app
       - name: Install and build React app
         working-directory: ./my-app
         run: |
-          npm ci || npm install
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
           npm run build
+
+      # Ensure custom domain is included in the published output
+      # (Vite copies /public into /dist, but we also enforce it here)
+      - name: Add CNAME for custom domain
+        run: |
+          echo "www.henrywoodrow.com" > ./my-app/dist/CNAME
 
       # Copy React build to Jekyll root (overwrite index.html + assets)
       - name: Copy React build into Jekyll site root
@@ -53,6 +62,8 @@ jobs:
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
 
   deploy:
     runs-on: ubuntu-latest
