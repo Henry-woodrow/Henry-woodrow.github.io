@@ -17,13 +17,13 @@ body {
   color: var(--text);
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .portfolio {
   min-height: 100vh;
   position: relative;
   padding: 1.5rem clamp(1rem, 4vw, 3.5rem) 3rem;
-  overflow: hidden;
   background:
     radial-gradient(65% 65% at 0% -10%, rgba(56, 189, 248, 0.2), transparent 70%),
     radial-gradient(70% 70% at 100% 10%, rgba(79, 70, 229, 0.15), transparent 65%),
@@ -32,7 +32,7 @@ body {
 }
 
 .background-glow {
-  position: absolute;
+  position: fixed;
   inset: -25%;
   background:
     radial-gradient(55% 40% at 20% 30%, rgba(56, 189, 248, 0.3), transparent 60%),
@@ -129,6 +129,62 @@ body {
   color: var(--text);
 }
 
+.nav-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(226, 232, 240, 0.15);
+  background: rgba(2, 6, 23, 0.7);
+  color: inherit;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle span + span {
+  margin-top: 4px;
+}
+
+.nav-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.nav-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 5;
+}
+
+.nav-backdrop.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -168,6 +224,11 @@ main {
   position: relative;
   z-index: 1;
   margin-top: 2rem;
+}
+
+.hero,
+.section {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
 }
 
 .hero {
@@ -449,6 +510,54 @@ main {
   .hero {
     grid-template-columns: 1fr;
     padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-backdrop {
+    display: block;
+  }
+
+  .site-header {
+    align-items: center;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    z-index: 25;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: calc(var(--header-height) + 1.5rem);
+    left: clamp(1rem, 5vw, 2.25rem);
+    right: clamp(1rem, 5vw, 2.25rem);
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1.25rem;
+    background: rgba(2, 6, 23, 0.97);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    box-shadow: 0 25px 60px rgba(2, 6, 23, 0.85);
+    transform: translateY(-1rem);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 20;
+  }
+
+  .site-nav.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .site-nav a {
+    width: 100%;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    text-align: left;
   }
 }
 

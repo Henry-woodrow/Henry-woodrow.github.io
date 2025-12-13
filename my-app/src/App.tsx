@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 const navLinks = [
@@ -97,6 +97,21 @@ const volunteering = [
 ];
 
 const App: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="portfolio">
       <div className="background-glow" />
@@ -109,9 +124,23 @@ const App: React.FC = () => {
             <p className="brand-title">Software Developer</p>
           </div>
         </div>
-        <nav className="site-nav">
+        <button
+          className={`nav-toggle ${menuOpen ? "open" : ""}`}
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+        <nav
+          id="primary-navigation"
+          className={`site-nav ${menuOpen ? "open" : ""}`}
+        >
           {navLinks.map((item) => (
-            <a key={item.href} href={item.href}>
+            <a key={item.href} href={item.href} onClick={closeMenu}>
               {item.label}
             </a>
           ))}
@@ -120,6 +149,11 @@ const App: React.FC = () => {
           Let&apos;s Talk
         </a>
       </header>
+      <div
+        className={`nav-backdrop ${menuOpen ? "visible" : ""}`}
+        aria-hidden="true"
+        onClick={closeMenu}
+      />
 
       <main>
         <section id="hero" className="hero">
